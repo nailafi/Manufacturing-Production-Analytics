@@ -6,7 +6,7 @@ Proyek ini mengintegrasikan data produksi, produk, dan *downtime* untuk menganal
 *Dataset* dalam proyek ini dibuat secara sintesis yang khusus digunakan untuk kebutuhan pembelajaran dan demonstrasi portofolio. Data tersebut tidak merepresentasikan data dari perusahaan atau industri tertentu.
 
 ## Tujuan 
-proyek ini bertujuan untuk menunjukkan kemampuan dalam:
+Proyek ini bertujuan untuk menunjukkan kemampuan dalam:
 - Melakukan pemeriksaan kualitas data dasar.
 - Mengekstrak data dari file CSV.
 - Mentransformasi dan mengintegrasikan beberapa *dataset*.
@@ -18,6 +18,7 @@ proyek ini bertujuan untuk menunjukkan kemampuan dalam:
 ## Dataset
 Proyek ini menggunakan 4 *dataset* sintetis.
 1. `product.csv`
+
 Berisi informasi referensi produk.
 
 | Kolom                     | Deskripsi                                                                  |
@@ -28,6 +29,7 @@ Berisi informasi referensi produk.
 | `standard_batch_time_min` | Waktu standar yang diperlukan untuk menyelesaikan satu *batch* (dalam menit) |
 
 2. `production.csv`
+   
 Berisi catatan produksi setiap *batch*.
 
 | Kolom                   | Deskripsi                                                           |
@@ -43,6 +45,7 @@ Berisi catatan produksi setiap *batch*.
 | `quantity_produced`     | Jumlah produk yang dihasilkan                                       |
 
 3. `downtime.csv`
+   
 Berisi catatan kejadian *downtime* terkait *batch* produksi.
 
 | Kolom              | Deskripsi                        |
@@ -53,6 +56,7 @@ Berisi catatan kejadian *downtime* terkait *batch* produksi.
 | `downtime_minutes` | Durasi *downtime* (dalam menit)  |
 
 4. `downtime_factors.csv`
+   
 Berisi informasi penyebab terjadinya *downtime*.
 
 | Kolom            | Deskripsi                             |
@@ -74,10 +78,13 @@ Hasilnya menunjukkan tidak ada data yang hilang atau duplikasi data. *Dataset* s
 ## Transformasi Data
 Beberapa transformasi dilakukan selama proses ETL, antara lain:
 1. Integrasi Data Produk
+   
 Data `production` digabungkan dengan data `product` menggunakan `product_id`. Proses ini menambahkan informasi produk dan waktu standar produksi per *batch* ke dalam data produksi.
 2. Variansi Waktu
+
 Kinerja produksi dievaluasi berdasarkan selisih antara waktu aktual dan waktu standar penyelesaian *batch* menggunakan `time_variance_min = actual_batch_time_min - standard_batch_time_min`. Nilai positif menunjukkan bahwa *batch* membutuhkan waktu lebih lama dibandingkan waktu standar penyelesaiannya.
 3. Agregasi Downtime
+
 Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung total *downtime* yang dialami setiap *batch* produksi.*Batch* yang tidak memiliki catatan *downtime* diberi nilai `downtime_minutes = 0`. *Field `downtime_status`* juga dibuat menjadi 2 kategori:
     - **Has Downtime** untuk *batch* yang memiliki catatan *downtime*.
     - **No Downtime** untuk *batch* yang tidak memiliki catatan *downtime*.
@@ -183,6 +190,7 @@ Berdasarkan *dataset* sintesis terdapat beberapa temuan, antara lain:
 - *Changeover* (Pergantian/penyesuaian proses) dan *Preventive* Maintenance (Pemeliharaan Preventif) menjadi kontributor terbesar berikutnya terhadap akumulasi *downtime*.
 
 ## Project Structure
+
 Manufacturing-Production-Analytics/
 │
 ├── dashboard/
@@ -223,20 +231,29 @@ Manufacturing-Production-Analytics/
 
 ## How to Run
 1. Clone the repository
+   
 `git clone <repository-url>`
+
 `cd manufacturing-production-analytics`
 
 2. Create and activate a virtual environment
+   
 `python -m venv .venv`
+
 `.venv\Scripts\activate`
 
 3. Install dependencies
+   
 `pip install -r requirements.txt`
 
 4. Run the ETL pipeline
+
 `python etl/load.py`
+
 Ini memuat data produksi yang telah ditransformasi beserta tabel pendukung *downtime* ke dalam: `manufacturing.db`
 
 5. Run the dashboard
+
 `streamlit run dashboard/app.py`
+
 Dashboard Streamlit dapat diakses secara lokal.
