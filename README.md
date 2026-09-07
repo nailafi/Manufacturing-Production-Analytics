@@ -73,6 +73,7 @@ Sebelum transformasi data, *dataset* diperiksa untuk mengidentifikasi kualitas d
 - Nilai yang hilang (*missing value*) ~ `.isnull().sum()`
 - Data duplikat ~ `.duplicated().sum()`
 - Statistik dasar ~ `.describe()`
+  
 Hasilnya menunjukkan tidak ada data yang hilang atau duplikasi data. *Dataset* sumber disimpan tanpa perubahan di folder `data`.
 
 ## Transformasi Data
