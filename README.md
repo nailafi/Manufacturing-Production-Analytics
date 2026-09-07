@@ -79,15 +79,15 @@ Hasilnya menunjukkan tidak ada data yang hilang atau duplikasi data. *Dataset* s
 Beberapa transformasi dilakukan selama proses ETL, antara lain:
 1. Integrasi Data Produk
    
-Data `production` digabungkan dengan data `product` menggunakan `product_id`. Proses ini menambahkan informasi produk dan waktu standar produksi per *batch* ke dalam data produksi.
+   Data `production` digabungkan dengan data `product` menggunakan `product_id`. Proses ini menambahkan informasi produk dan waktu standar produksi per *batch* ke dalam data produksi.
 
 2. Variansi Waktu
 
-Kinerja produksi dievaluasi berdasarkan selisih antara waktu aktual dan waktu standar penyelesaian *batch* menggunakan `time_variance_min = actual_batch_time_min - standard_batch_time_min`. Nilai positif menunjukkan bahwa *batch* membutuhkan waktu lebih lama dibandingkan waktu standar penyelesaiannya.
+   Kinerja produksi dievaluasi berdasarkan selisih antara waktu aktual dan waktu standar penyelesaian *batch* menggunakan `time_variance_min = actual_batch_time_min - standard_batch_time_min`. Nilai positif menunjukkan bahwa *batch* membutuhkan waktu lebih lama dibandingkan waktu standar penyelesaiannya.
 
 3. Agregasi Downtime
 
-Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung total *downtime* yang dialami setiap *batch* produksi.*Batch* yang tidak memiliki catatan *downtime* diberi nilai `downtime_minutes = 0`. *Field `downtime_status`* juga dibuat menjadi 2 kategori:
+   Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung total *downtime* yang dialami setiap *batch* produksi.*Batch* yang tidak memiliki catatan *downtime* diberi nilai `downtime_minutes = 0`. *Field `downtime_status`* juga dibuat menjadi 2 kategori:
     - **Has Downtime** untuk *batch* yang memiliki catatan *downtime*.
     - **No Downtime** untuk *batch* yang tidak memiliki catatan *downtime*.
 
@@ -95,8 +95,8 @@ Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung t
 *Dataset* yang telah ditransformasikan dan *dataset* sumber dimuat ke dalam *database* SQLite.
 *Dataset* terdiri dari tiga tabel utama:
 
-manufacturing.db
 ```text
+manufacturing.db
 ├── production_analysis
 ├── downtime
 └── downtime_factors
@@ -153,6 +153,7 @@ Analisis ini bersifat deskriptif dan tidak menyatakan bahwa *downtime* secara la
    Data kejadian downtime digabungkan (JOIN) dengan tabel referensi faktor *downtime* untuk mengidentifikasi penyebab utama *downtime*.
 
 Contoh SQL:
+```text
 SELECT
     df.factor_name,
     SUM(d.downtime_minutes) AS total_downtime
@@ -161,6 +162,7 @@ JOIN downtime_factors df
     ON d.factor_id = df.factor_id
 GROUP BY df.factor_name
 ORDER BY total_downtime DESC;
+```
 
 ## Dashboard
 *Dashboard* interaktif dikembangkan menggunakan Streamlit, yang menyediakan beberapa fitur utama, yaitu:
@@ -207,8 +209,8 @@ Berdasarkan *dataset* sintesis terdapat beberapa temuan, antara lain:
 
 ## Project Structure
 
-Manufacturing-Production-Analytics/
 ```text
+Manufacturing-Production-Analytics/
 │
 ├── dashboard/
 │   └── app.py
