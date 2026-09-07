@@ -19,7 +19,7 @@ Proyek ini bertujuan untuk menunjukkan kemampuan dalam:
 Proyek ini menggunakan 4 *dataset* sintetis.
 1. `product.csv`
 
-Berisi informasi referensi produk.
+   Berisi informasi referensi produk.
 
 | Kolom                     | Deskripsi                                                                  |
 | ------------------------- | -------------------------------------------------------------------------- |
@@ -30,7 +30,7 @@ Berisi informasi referensi produk.
 
 2. `production.csv`
    
-Berisi catatan produksi setiap *batch*.
+   Berisi catatan produksi setiap *batch*.
 
 | Kolom                   | Deskripsi                                                           |
 | ----------------------- | ------------------------------------------------------------------- |
@@ -46,7 +46,7 @@ Berisi catatan produksi setiap *batch*.
 
 3. `downtime.csv`
    
-Berisi catatan kejadian *downtime* terkait *batch* produksi.
+   Berisi catatan kejadian *downtime* terkait *batch* produksi.
 
 | Kolom              | Deskripsi                        |
 | ------------------ | -------------------------------- |
@@ -57,7 +57,7 @@ Berisi catatan kejadian *downtime* terkait *batch* produksi.
 
 4. `downtime_factors.csv`
    
-Berisi informasi penyebab terjadinya *downtime*.
+   Berisi informasi penyebab terjadinya *downtime*.
 
 | Kolom            | Deskripsi                             |
 | ---------------- | ------------------------------------- |
@@ -80,9 +80,11 @@ Beberapa transformasi dilakukan selama proses ETL, antara lain:
 1. Integrasi Data Produk
    
 Data `production` digabungkan dengan data `product` menggunakan `product_id`. Proses ini menambahkan informasi produk dan waktu standar produksi per *batch* ke dalam data produksi.
+
 2. Variansi Waktu
 
 Kinerja produksi dievaluasi berdasarkan selisih antara waktu aktual dan waktu standar penyelesaian *batch* menggunakan `time_variance_min = actual_batch_time_min - standard_batch_time_min`. Nilai positif menunjukkan bahwa *batch* membutuhkan waktu lebih lama dibandingkan waktu standar penyelesaiannya.
+
 3. Agregasi Downtime
 
 Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung total *downtime* yang dialami setiap *batch* produksi.*Batch* yang tidak memiliki catatan *downtime* diberi nilai `downtime_minutes = 0`. *Field `downtime_status`* juga dibuat menjadi 2 kategori:
@@ -99,6 +101,7 @@ manufacturing.db
 └── downtime_factors
 
 Adapun relasi antar tabel sebelum ditranformasi sebagai berikut:
+
 products
     │
     │ product_id
@@ -122,18 +125,27 @@ SQL digunakan untuk menganalisis kinerja produksi dan pola *downtime*, meliputi:
 - Rata-rata variansi waktu
 - Rata-rata *downtime*
 - Rata-rata jumlah produk yang dihasilkan
+  
 2. Kinerja Produksi Berdasarkan *Shift*
 - Pagi
 - Siang
 - Malam
+  
 3. Kinerja Produksi Berdasarkan Operator
+  
 Membandingkan metrik produksi deskriptif untuk setiap operator
+
 4. Downtime vs Kinerja Produksi
+
 Membandingkan kinerja produksi antara batch yang mengalami *downtime* dan *batch* yang tidak mengalami *downtime*.
 Analisis ini bersifat deskriptif dan tidak menyatakan bahwa *downtime* secara langsung menyebabkan keterlambatan produksi.
+
 5. Batch dengan Downtime Tertinggi
+   
 Mengidentifikasi *batch* produksi dengan akumulasi downtime tertinggi.
+
 6. Downtime Berdasarkan Faktor
+
 Data kejadian downtime digabungkan (JOIN) dengan tabel referensi faktor *downtime* untuk mengidentifikasi penyebab utama *downtime*.
 
 Contoh SQL:
