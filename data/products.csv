@@ -1,0 +1,6 @@
+product_id,product_name,size,standard_batch_time_min
+P001,Cola,600ml,55
+P002,Lemon Lime,600ml,50
+P003,Orange,600ml,52
+P004,Diet Cola,600ml,58
+P005,Cola,2L,72

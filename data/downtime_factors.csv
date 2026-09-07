@@ -1,0 +1,9 @@
+factor_id,factor_name,category,operator_error
+F01,Machine Failure,Machine,No
+F02,Preventive Maintenance,Maintenance,No
+F03,Material Shortage,Material,No
+F04,Operator Error,Human,Yes
+F05,Quality Inspection,Quality,No
+F06,Changeover,Process,No
+F07,Cleaning,Process,No
+F08,Sensor Problem,Machine,No
