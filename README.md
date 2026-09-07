@@ -96,12 +96,15 @@ Data kejadian *downtime* diagregasikan berdasarkan *batch_id* untuk menghitung t
 *Dataset* terdiri dari tiga tabel utama:
 
 manufacturing.db
+```text
 ├── production_analysis
 ├── downtime
 └── downtime_factors
+```
 
 Adapun relasi antar tabel sebelum ditranformasi sebagai berikut:
 
+```text
 products
     │
     │ product_id
@@ -115,6 +118,7 @@ downtime
     │ factor_id
     ▼
 downtime_factors
+```
 
 Struktur relasional ini memungkinkan berbagai *dataset* untuk digabungkan (JOIN) ketika dibutuhkan informasi tambahan untuk analisis.
 
@@ -133,20 +137,20 @@ SQL digunakan untuk menganalisis kinerja produksi dan pola *downtime*, meliputi:
   
 3. Kinerja Produksi Berdasarkan Operator
   
-Membandingkan metrik produksi deskriptif untuk setiap operator
+   Membandingkan metrik produksi deskriptif untuk setiap operator
 
 4. Downtime vs Kinerja Produksi
 
-Membandingkan kinerja produksi antara batch yang mengalami *downtime* dan *batch* yang tidak mengalami *downtime*.
+   Membandingkan kinerja produksi antara batch yang mengalami *downtime* dan *batch* yang tidak mengalami *downtime*.
 Analisis ini bersifat deskriptif dan tidak menyatakan bahwa *downtime* secara langsung menyebabkan keterlambatan produksi.
 
 5. Batch dengan Downtime Tertinggi
    
-Mengidentifikasi *batch* produksi dengan akumulasi downtime tertinggi.
+   Mengidentifikasi *batch* produksi dengan akumulasi downtime tertinggi.
 
 6. Downtime Berdasarkan Faktor
 
-Data kejadian downtime digabungkan (JOIN) dengan tabel referensi faktor *downtime* untuk mengidentifikasi penyebab utama *downtime*.
+   Data kejadian downtime digabungkan (JOIN) dengan tabel referensi faktor *downtime* untuk mengidentifikasi penyebab utama *downtime*.
 
 Contoh SQL:
 SELECT
@@ -204,6 +208,7 @@ Berdasarkan *dataset* sintesis terdapat beberapa temuan, antara lain:
 ## Project Structure
 
 Manufacturing-Production-Analytics/
+```text
 │
 ├── dashboard/
 │   └── app.py
@@ -230,6 +235,7 @@ Manufacturing-Production-Analytics/
 ├── manufacturing.db
 ├── README.md
 └── requirements.txt
+```
 
 ## Teknologi
 - Python
@@ -244,28 +250,28 @@ Manufacturing-Production-Analytics/
 ## How to Run
 1. Clone the repository
    
-`git clone <repository-url>`
+   `git clone <repository-url>`
 
-`cd manufacturing-production-analytics`
+   `cd manufacturing-production-analytics`
 
 2. Create and activate a virtual environment
    
-`python -m venv .venv`
+   `python -m venv .venv`
 
-`.venv\Scripts\activate`
+   `.venv\Scripts\activate`
 
 3. Install dependencies
    
-`pip install -r requirements.txt`
+   `pip install -r requirements.txt`
 
 4. Run the ETL pipeline
 
-`python etl/load.py`
+   `python etl/load.py`
 
-Ini memuat data produksi yang telah ditransformasi beserta tabel pendukung *downtime* ke dalam: `manufacturing.db`
+   Ini memuat data produksi yang telah ditransformasi beserta tabel pendukung *downtime* ke dalam: `manufacturing.db`
 
 5. Run the dashboard
 
-`streamlit run dashboard/app.py`
+   `streamlit run dashboard/app.py`
 
-Dashboard Streamlit dapat diakses secara lokal.
+   Dashboard Streamlit dapat diakses secara lokal.
